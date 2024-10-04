@@ -15,7 +15,7 @@ llm = ChatOpenAI(model="gpt-3.5-turbo", api_key=api_key)
 # Function to summarize the document with customization
 def summarize_document(text, length, style, custom_instructions):
     # Create a dynamic prompt based on user inputs
-    prompt = f"Summarize this document in {length} sentences. The summary should be {style}. if {style} is 'key points' create a summary with bullet points {custom_instructions if custom_instructions else ''}"
+    prompt = f"Summarize this document in {length} sentences. The summary should be {style}. if {style} is exactly 'key points' create a summary with bullet points, if its concise, dont use bullet points, also {custom_instructions if custom_instructions else ''}"
     prompt_template = PromptTemplate.from_template(prompt)
     
     # Use LLMChain with the customized prompt
