@@ -42,7 +42,7 @@ uploaded_file = st.file_uploader("Upload a document", type=["txt", "pdf"])
 
 # Customization options
 length = st.slider("Select summary length (number of sentences)", min_value=1, max_value=30, value=10)
-style = st.selectbox("Select summary style", ["concise", "detailed", "formal", "informal"])
+style = st.selectbox("Select summary style", ["concise", "detailed", "formal", "informal", "bullet points"])
 custom_instructions = st.text_input("Additional instructions (optional)", "")
 
 # Process file if uploaded
