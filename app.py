@@ -12,13 +12,16 @@ api_key = os.getenv("OPENAI_API_KEY")
 # Use ChatOpenAI instead of OpenAI for chat models like gpt-3.5-turbo
 llm = ChatOpenAI(model="gpt-3.5-turbo", api_key=api_key)
 
-# Function to summarize the document with customization
 def summarize_document(text, length, style, custom_instructions):
     # Create a dynamic prompt based on user inputs
-    prompt = f"Summarize this document in {length} sentences. The summary should be {style}. if {style} is exactly 'key points' create a summary with bullet points, also {custom_instructions if custom_instructions else ''}"
-    prompt_template = PromptTemplate.from_template(prompt)
+    prompt = f"""
+    Please read the following document carefully and summarize it in {length} sentences. 
+    The summary should be {style}. 
+    Here is the document: {text}. 
+    {custom_instructions if custom_instructions else ''}
+    """
     
-    # Use LLMChain with the customized prompt
+    prompt_template = PromptTemplate.from_template(prompt)
     chain = LLMChain(llm=llm, prompt=prompt_template)
     return chain.run({"document_text": text})
 
@@ -39,7 +42,7 @@ uploaded_file = st.file_uploader("Upload a document", type=["txt", "pdf"])
 
 # Customization options
 length = st.slider("Select summary length (number of sentences)", min_value=1, max_value=30, value=10)
-style = st.selectbox("Select summary style", ["key points", "detailed", "formal", "informal"])
+style = st.selectbox("Select summary style", ["concise", "detailed", "formal", "informal"])
 custom_instructions = st.text_input("Additional instructions (optional)", "")
 
 # Process file if uploaded
