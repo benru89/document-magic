@@ -6,8 +6,7 @@ from langchain import LLMChain, PromptTemplate
 import fitz  # PyMuPDF
 
 # Load the API key from .env file
-load_dotenv()
-api_key = st.secrets["OPENAI_API_KEY"]
+api_key = st.secrets["general"]["OPENAI_API_KEY"]
 
 # Use ChatOpenAI instead of OpenAI for chat models like gpt-3.5-turbo
 llm = ChatOpenAI(model="gpt-3.5-turbo", api_key=api_key)
